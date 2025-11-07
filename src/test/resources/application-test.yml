@@ -1,0 +1,18 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          secret-value: test-jwt-secret
+    csrf:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+jwt_secret: test-jwt-secret-for-unit-tests
+
+logging:
+  level:
+    com.example.bankcards: DEBUG

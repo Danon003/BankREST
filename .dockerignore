@@ -1,0 +1,11 @@
+.git
+.gitignore
+target/
+*.iml
+.idea/
+.mvn/
+logs/
+*.log
+.DS_Store
+docker-compose.override.yml
+sql/init/*.sql

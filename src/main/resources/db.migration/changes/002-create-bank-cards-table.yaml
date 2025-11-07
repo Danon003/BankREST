@@ -1,0 +1,79 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-bank-cards-table
+      author: system
+      changes:
+        - createTable:
+            tableName: bank_cards
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: card_number_encrypted
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: card_holder
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expiration_date
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cvv_encrypted
+                  type: VARCHAR(255)
+              - column:
+                  name: balance
+                  type: DECIMAL(15,2)
+                  defaultValue: 0.00
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_card_user
+                    references: users(id)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - addForeignKeyConstraint:
+            baseTableName: bank_cards
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_card_user
+
+        - createIndex:
+            tableName: bank_cards
+            columns:
+              - column:
+                  name: user_id
+            indexName: idx_bank_cards_user_id
+
+        - createIndex:
+            tableName: bank_cards
+            columns:
+              - column:
+                  name: status
+            indexName: idx_bank_cards_status
